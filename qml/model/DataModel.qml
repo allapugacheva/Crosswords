@@ -6,6 +6,7 @@ Item {
     id: dataModel
 
     signal loggedIn
+    signal loginError
 
     property string userId: ""
 
@@ -54,6 +55,7 @@ Item {
                     var errObj = JSON.parse(request.responseText)
 
                     NativeUtils.displayMessageBox(qsTr("Login fail"), qsTr("Reason: " + errObj.error.message))
+                    loginError()
                 }
             }
         }
@@ -111,6 +113,7 @@ Item {
                     var errObj = JSON.parse(request.responseText)
 
                     NativeUtils.displayMessageBox(qsTr("Login fail"), qsTr("Reason: " + errObj.error.message))
+                    loginError()
                 }
             }
         }

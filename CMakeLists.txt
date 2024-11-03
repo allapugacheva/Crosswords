@@ -5,7 +5,15 @@ project(Crosswords VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Felgo REQUIRED)
+set(LIBS_DIR "${CMAKE_SOURCE_DIR}/CLib")
+
+add_library(mylib SHARED IMPORTED)
+set_target_properties(mylib PROPERTIES IMPORTED_LOCATION "${LIBS_DIR}/mylib.so" IMPORTED_IMPLIB "${LIBS_DIR}/mylib.lib")
+target_include_directories(mylib INTERFACE "${CMAKE_SOURCE_DIR}/CLib")
+
+find_package(Felgo REQUIRED mylib Qml)
+
+#find_package(Felgo REQUIRED)
 
 # Project identifier and version
 # More information: https://felgo.com/doc/felgo-publishing/#project-configuration
@@ -53,6 +61,7 @@ qt_add_qml_module(appCrosswords
 #    QML_FILES ${QmlFiles}
 #    RESOURCES ${AssetsFiles}
     NO_RESOURCE_TARGET_PATH
+    SOURCES MessageProvider.h
 )
 
 # NOTE: for PUBLISHING, perform the following steps:
@@ -67,7 +76,9 @@ qt_add_qml_module(appCrosswords
 target_compile_definitions(appCrosswords
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries(appCrosswords PRIVATE Felgo)
+#target_link_libraries(appCrosswords PRIVATE Felgo)
+target_link_libraries(appCrosswords PRIVATE Felgo mylib Qt6::Qml)
+target_include_directories(appCrosswords PRIVATE "${CMAKE_SOURCE_DIR}/CLib")
 
 # uncomment this line to add Felgo Hot Reload and use hot reloading with your custom C++ code
 # for the remaining steps see here: https://felgo.com/custom-code-reload-app/

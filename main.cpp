@@ -1,13 +1,18 @@
 #include <QApplication>
 #include <FelgoApplication>
-
 #include <QQmlApplicationEngine>
+#include <QmlTypeAndRevisionsRegistration>
+#include <QtQml/qqmlextensionplugin.h>
+#include "messageprovider.h"
 
 // Uncomment this line to add Felgo Hot Reload and use hot reloading with your custom C++ code
 //#include <FelgoHotReload>
 
+
 int main(int argc, char *argv[])
 {
+    qmlRegisterType<MessageProvider>("MyLib", 1, 0, "MessageProvider");
+
     QApplication app(argc, argv);
 
     FelgoApplication felgo;

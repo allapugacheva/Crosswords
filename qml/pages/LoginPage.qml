@@ -1,12 +1,19 @@
 import QtQuick
 import Felgo
+import MyLib
 
 AppPage {
 
     id: loginPage
     title: qsTr("Авторизация")
 
+    property string mopsSource: "https://i.ibb.co/SKCQQTc/9cfe88727e169790f0ce44e9aedf1f1e.png"
+
     signal login(bool isRegister, string email, string password)
+
+    MessageProvider {
+        id: lib
+    }
 
     Column {
         anchors.fill: parent
@@ -39,5 +46,17 @@ AppPage {
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: loginPage.login(checkBoxRegister.checked, textFieldEmail.text, textFieldPassword.text)
         }
+
+        Image {
+            id: mops
+            source: mopsSource
+            width: parent.width
+            height: parent.width
+        }
+    }
+
+    function updateMops() {
+
+        mopsSource = lib.getMessage()
     }
 }

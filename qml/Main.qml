@@ -13,6 +13,10 @@ App {
 
             stack.push(mainPage, {dm: dataModel})
         }
+        onLoginError: function() {
+
+            loginPage.updateMops()
+        }
     }
 
     NavigationStack {
