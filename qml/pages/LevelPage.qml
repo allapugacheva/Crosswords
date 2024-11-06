@@ -118,6 +118,7 @@ AppPage {
 
                 } else {
 
+                    updateColor(questions[cur])
                     var temp = curAnswer
 
                     for(var x = 0; x < curAnswer.length; x++) {
@@ -633,26 +634,30 @@ AppPage {
 
     function onLeftButtonClicked() {
 
-        do {
-            if(cur > 0)
-                cur--
-            else
-                cur = questions.length - 1
-        } while(finishedQuestions.includes(questions[cur]))
+        if(finishedQuestions.length !== questions.length) {
+            do {
+                if(cur > 0)
+                    cur--
+                else
+                    cur = questions.length - 1
+            } while(finishedQuestions.includes(questions[cur]))
 
-        updateColor(questions[cur])
+            updateColor(questions[cur])
+        }
     }
 
     function onRightButtonClicked() {
 
-        do {
-            if(cur < questions.length - 1)
-                cur++
-            else
-                cur = 0
-        } while(finishedQuestions.includes(questions[cur]))
+        if(finishedQuestions.length !== questions.length) {
+            do {
+                if(cur < questions.length - 1)
+                    cur++
+                else
+                    cur = 0
+            } while(finishedQuestions.includes(questions[cur]))
 
-        updateColor(questions[cur])
+            updateColor(questions[cur])
+        }
     }
 
     function onEnterGridClicked(index) {
@@ -749,7 +754,6 @@ AppPage {
                                 finishedQuestions = finishedQuestions.concat(questions[cur])
 
                                 if(finishedQuestions.length === questions.length) {
-                                    NativeUtils.displayMessageBox(qsTr("WIN"), qsTr("WIN"))
                                     timer.stop()
 
                                     salutImage.visible = true

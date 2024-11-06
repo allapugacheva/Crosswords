@@ -71,7 +71,7 @@ AppPage {
                     dm.dataList[0] = time
                 if(parseInt(time) > parseInt(dm.dataList[1]))
                     dm.dataList[1] = time
-                dm.dataList[2] = (parseInt(dm.dataList[2]) * dm.dataList[4] + time) / (dm.dataList[4] + 1)
+                dm.dataList[2] = (dm.dataList[2] * dm.dataList[4] + time) / (dm.dataList[4] + 1)
                 dm.dataList[3] = dm.dataList[3] + hints
                 dm.dataList[4] = dm.dataList[4] + 1
                 dm.updateUser()

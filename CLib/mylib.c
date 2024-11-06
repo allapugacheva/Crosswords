@@ -9,5 +9,5 @@
 #endif
 
 EXPORT const char* getNewMops() {
-    return "Hello from C library!";
+    return "https://i.ibb.co/wcFdyx9/11.png";
 }
