@@ -3,7 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QmlTypeAndRevisionsRegistration>
 #include <QtQml/qqmlextensionplugin.h>
-#include "messageprovider.h"
+#include "MessageProvider.h"
 
 // Uncomment this line to add Felgo Hot Reload and use hot reloading with your custom C++ code
 //#include <FelgoHotReload>

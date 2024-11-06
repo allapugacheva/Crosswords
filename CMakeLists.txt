@@ -5,15 +5,13 @@ project(Crosswords VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(LIBS_DIR "${CMAKE_SOURCE_DIR}/CLib")
+message(STATUS ${CMAKE_SOURCE_DIR})
 
 add_library(mylib SHARED IMPORTED)
-set_target_properties(mylib PROPERTIES IMPORTED_LOCATION "${LIBS_DIR}/mylib.so" IMPORTED_IMPLIB "${LIBS_DIR}/mylib.lib")
-target_include_directories(mylib INTERFACE "${CMAKE_SOURCE_DIR}/CLib")
+set_target_properties(mylib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/build/Android_Qt_6_4_1_Clang_arm64_v8a-Release/android-build/libs/${ANDROID_ABI}/libmylibrary.so")
 
 find_package(Felgo REQUIRED mylib Qml)
-
-#find_package(Felgo REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 # Project identifier and version
 # More information: https://felgo.com/doc/felgo-publishing/#project-configuration
@@ -76,9 +74,7 @@ qt_add_qml_module(appCrosswords
 target_compile_definitions(appCrosswords
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-#target_link_libraries(appCrosswords PRIVATE Felgo)
-target_link_libraries(appCrosswords PRIVATE Felgo mylib Qt6::Qml)
-target_include_directories(appCrosswords PRIVATE "${CMAKE_SOURCE_DIR}/CLib")
+target_link_libraries(appCrosswords PRIVATE Felgo mylib Qt6::Core Qt6::Qml)
 
 # uncomment this line to add Felgo Hot Reload and use hot reloading with your custom C++ code
 # for the remaining steps see here: https://felgo.com/custom-code-reload-app/

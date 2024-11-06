@@ -3,16 +3,22 @@
 #define MESSAGEPROVIDER_H
 
 #include <QObject>
-
-extern "C" {
-    const char* getNewMops();  // Объявляем функцию из библиотеки
-}
+#include <jni.h>
+#include <QJniObject>
 
 class MessageProvider : public QObject {
     Q_OBJECT
 public:
-    Q_INVOKABLE QString getMessage() const {
-        return QString::fromUtf8(getNewMops());  // Вызов C-функции
+    explicit MessageProvider(QObject* parent = nullptr) : QObject(parent) {}
+
+    Q_INVOKABLE QString getMessage() {
+        QJniObject result = QJniObject::callStaticObjectMethod(
+            "com/example/mylibrary/NativeLib",
+            "getMessage",
+            "()Ljava/lang/String;"
+            );
+
+        return result.toString();
     }
 };
 
